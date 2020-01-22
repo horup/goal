@@ -1,15 +1,36 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using LiteDB;
 
 namespace goal
 {
+    class GoalEntry
+    {
+        public int Id{get;set;}
+        public DateTimeOffset Timestamp {get;set;} = DateTimeOffset.Now;
+        public string Description {get;set;} = "";
+    }
+
     class Program
     {
+        static LiteDatabase OpenDB()
+        {
+            return new LiteDatabase(@"goal.db");
+        }
         static void Add(string s)
         {
             // add to DB
-            Console.WriteLine(s);
+            using (var db = OpenDB())
+            {
+                var col = db.GetCollection<GoalEntry>("goals");
+                var g = new GoalEntry() 
+                {
+                    Description = s
+                };
+
+                col.Insert(g);
+            }
         }
         static void Main(string[] args)
         {
