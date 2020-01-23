@@ -10,6 +10,11 @@ namespace goal
         public int Id{get;set;}
         public DateTimeOffset Timestamp {get;set;} = DateTimeOffset.Now;
         public string Description {get;set;} = "";
+
+        public override string ToString()
+        {
+            return string.Format("{0}\t{1}", this.Id, this.Description);
+        }
     }
 
     class Program
@@ -32,6 +37,17 @@ namespace goal
                 col.Insert(g);
             }
         }
+        static void List(string[] args)
+        {
+            using (var db = OpenDB())
+            {
+                var col = db.GetCollection<GoalEntry>("goals");
+                foreach (var g in col.FindAll().Reverse())
+                {
+                    Console.WriteLine(g.ToString());
+                }
+            }
+        }
         static void Main(string[] args)
         {
            try
@@ -48,6 +64,11 @@ namespace goal
                         
 
                         Add(s);
+                        break;
+                    }
+                    case "list":
+                    {
+                        List(args.TakeLast(args.Length-1).ToArray());
                         break;
                     }
                     default:
