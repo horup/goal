@@ -12,20 +12,6 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Pack
-      run: dotnet pack -o . --version-suffix "ci-$(time)"
+      run: dotnet pack -o . --version-suffix "ci-$(date +%s)"
     - name: Push to Nuget
       run: dotnet nuget push *.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
-    - name: Publish Linux
-      run: dotnet publish -c Release -r linux-x64 --no-self-contained
-    - name: Publish Window
-      run: dotnet publish -c Release -r win-x64 --no-self-contained
-    - name: Archive Windows
-      uses: actions/upload-artifact@v1
-      with:
-        name: linux-x64
-        path: bin/Release/netcoreapp3.1/linux-x64/publish
-    - name: Archive Linux
-      uses: actions/upload-artifact@v1
-      with:
-        name: win-x64
-        path: bin/Release/netcoreapp3.1/win-x64/publish
