@@ -12,7 +12,7 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Pack
-      run: dotnet pack -o .
+      run: dotnet pack -o . --version-suffix "ci-$(date)"
     - name: Push to Nuget
       run: dotnet nuget push *.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
     - name: Publish Linux
