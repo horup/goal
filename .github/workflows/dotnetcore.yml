@@ -11,10 +11,22 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-    - name: Archive results
+    - name: Publish Linux
+      run: dotnet publish -c Release -r linux-x64 --no-self-contained
+    - name: Publish Window
+      run: dotnet publish -c Release -r win-x64 --no-self-contained
+    - name: Archive Windows
       uses: actions/upload-artifact@v1
       with:
         name: bin
         path: bin
+    - name: Archive Windows
+      uses: actions/upload-artifact@v1
+      with:
+        name: bin/Release/netcoreapp3.1/linux-x64
+        path: linux-x64
+    - name: Archive Linux
+      uses: actions/upload-artifact@v1
+      with:
+        name: bin/Release/netcoreapp3.1/win-x64
+        path: win-x64
