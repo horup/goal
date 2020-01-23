@@ -23,8 +23,13 @@ namespace goal
         {
             return new LiteDatabase(@"goal.db");
         }
-        static void Add(string s)
+        static void Add(string[] rest)
         {
+            var s = rest.Aggregate((a,b)=>
+            {
+                return a + " " + b;
+            });
+
             // add to DB
             using (var db = OpenDB())
             {
@@ -48,27 +53,36 @@ namespace goal
                 }
             }
         }
+        static void Delete(string[] args)
+        {
+            using (var db = OpenDB())
+            {
+                var id = int.Parse(args[0]);
+                var col = db.GetCollection<GoalEntry>("goals");
+                col.Delete(id);
+            }
+        }
         static void Main(string[] args)
         {
            try
            {
-               var command = args[0];
+                var command = args[0];
+                var rest = args.TakeLast(args.Length-1).ToArray();
                 switch(command)
                 {
+                    case "delete":
+                    {
+                        Delete(rest);
+                        break;
+                    }
                     case "add":
                     {
-                        var s = args.TakeLast(args.Length-1).Aggregate((a,b)=>
-                        {
-                            return a + " " + b;
-                        });
-                        
-
-                        Add(s);
+                        Add(rest);
                         break;
                     }
                     case "list":
                     {
-                        List(args.TakeLast(args.Length-1).ToArray());
+                        List(rest);
                         break;
                     }
                     default:
