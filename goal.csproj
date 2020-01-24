@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <VersionPrefix>1.1.0</VersionPrefix>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>goal</ToolCommandName>
   </PropertyGroup>
 
   <ItemGroup>
