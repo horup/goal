@@ -8,9 +8,9 @@ namespace goal
 {
     class GoalEntry
     {
-        public int Id{get;set;}
-        public DateTimeOffset Timestamp {get;set;} = DateTimeOffset.Now;
-        public string Description {get;set;} = "";
+        public int Id { get; set; }
+        public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.Now;
+        public string Description { get; set; } = "";
 
         public override string ToString()
         {
@@ -23,7 +23,7 @@ namespace goal
         static LiteDatabase OpenDB()
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-                + Path.DirectorySeparatorChar + "goal" 
+                + Path.DirectorySeparatorChar + "goal"
                 + Path.DirectorySeparatorChar + "goal.db";
             var info = new FileInfo(path);
             if (!Directory.Exists(info.DirectoryName))
@@ -32,7 +32,7 @@ namespace goal
         }
         static void Add(string[] rest)
         {
-            var s = rest.Aggregate((a,b)=>
+            var s = rest.Aggregate((a, b) =>
             {
                 return a + " " + b;
             });
@@ -41,7 +41,7 @@ namespace goal
             using (var db = OpenDB())
             {
                 var col = db.GetCollection<GoalEntry>("goals");
-                var g = new GoalEntry() 
+                var g = new GoalEntry()
                 {
                     Description = s
                 };
@@ -71,36 +71,35 @@ namespace goal
         }
         static void Main(string[] args)
         {
-           try
-           {
+            try
+            {
                 var command = args[0];
-                var rest = args.TakeLast(args.Length-1).ToArray();
-                switch(command)
+                var rest = args.TakeLast(args.Length - 1).ToArray();
+                switch (command)
                 {
                     case "delete":
-                    {
-                        Delete(rest);
-                        break;
-                    }
+                        {
+                            Delete(rest);
+                            break;
+                        }
                     case "add":
-                    {
-                        Add(rest);
-                        break;
-                    }
+                        {
+                            Add(rest);
+                            break;
+                        }
                     case "list":
-                    {
-                        List(rest);
-                        break;
-                    }
+                        {
+                            List(rest);
+                            break;
+                        }
                     default:
-                    throw new Exception();
-                }               
-           }
-           catch(Exception e)
-           {
-               Console.WriteLine(e.ToString());
-           }
+                        throw new Exception();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
     }
 }
- 
