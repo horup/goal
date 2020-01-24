@@ -91,7 +91,7 @@ namespace goal
            }
            catch(Exception)
            {
-               Console.WriteLine("Input failure!");
+               Console.WriteLine("Input failure!!!");
            }
         }
     }
