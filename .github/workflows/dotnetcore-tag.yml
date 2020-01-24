@@ -1,0 +1,17 @@
+name: .NET Core Tag
+
+on: [tag]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Push to Nuget
+      run: dotnet nuget push nuget/*.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
