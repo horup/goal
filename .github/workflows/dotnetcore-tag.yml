@@ -1,6 +1,9 @@
 name: .NET Core Tag
 
-on: [tag]
+on:
+  tag:
+    branches:
+      - master
 
 jobs:
   build:
