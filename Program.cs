@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.IO;
 using LiteDB;
 
 namespace goal
@@ -21,7 +22,13 @@ namespace goal
     {
         static LiteDatabase OpenDB()
         {
-            return new LiteDatabase(@"goal.db");
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                + Path.DirectorySeparatorChar + "goal" 
+                + Path.DirectorySeparatorChar + "goal.db";
+            var info = new FileInfo(path);
+            if (!Directory.Exists(info.DirectoryName))
+                Directory.CreateDirectory(info.DirectoryName);
+            return new LiteDatabase(info.FullName);
         }
         static void Add(string[] rest)
         {
@@ -89,9 +96,9 @@ namespace goal
                     throw new Exception();
                 }               
            }
-           catch(Exception)
+           catch(Exception e)
            {
-               Console.WriteLine("Input failure!!!");
+               Console.WriteLine(e.ToString());
            }
         }
     }
