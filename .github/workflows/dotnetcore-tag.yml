@@ -2,6 +2,7 @@ name: .NET Core Tag
 
 on:
   tag:
+    types: [published]
     branches:
       - master
 
