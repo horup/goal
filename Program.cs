@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using LiteDB;
+using System.Reflection;
 
 namespace goal
 {
@@ -69,6 +70,12 @@ namespace goal
                 col.Delete(id);
             }
         }
+        static void Version()
+        {
+            var asm = Assembly.GetEntryAssembly();
+            var v = asm.GetName().Version;
+            Console.WriteLine("goal v" + v.ToString());
+        }
         static void Main(string[] args)
         {
             try
@@ -80,6 +87,11 @@ namespace goal
                     case "delete":
                         {
                             Delete(rest);
+                            break;
+                        }
+                    case "version":
+                        {
+                            Version();
                             break;
                         }
                     case "add":
