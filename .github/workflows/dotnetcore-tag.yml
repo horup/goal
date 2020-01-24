@@ -1,7 +1,7 @@
 name: .NET Core Tag
 
 on:
-  tag:
+  release:
     types: [published]
     branches:
       - master
