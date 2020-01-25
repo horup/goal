@@ -6,6 +6,7 @@ namespace Goal.Server.Controllers
     [Route("api/1/goal")]
     public class GoalController
     {
+        [HttpGet]
         public string Get()
         {
             return "hello world";
