@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Goal.Server.Data;
 
 namespace Goal.Server.Controllers
 {
@@ -6,10 +7,16 @@ namespace Goal.Server.Controllers
     [Route("api/1/goal")]
     public class GoalController
     {
+        private GoalDB dB;
+        public GoalController(GoalDB db)
+        {
+            this.dB = db;
+        }
+        
         [HttpGet]
         public string Get()
         {
-            return "hello world";
+            return dB.ListEntries().Count.ToString();
         }
     }
 }

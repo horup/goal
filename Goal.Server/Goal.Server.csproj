@@ -1,16 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <ItemGroup>
     <ProjectReference Include="..\Goal.Common\Goal.Common.csproj" />
   </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>3e811cea-e4bf-4e09-b677-977038b32f59</UserSecretsId>
   </PropertyGroup>
-
-
 </Project>
