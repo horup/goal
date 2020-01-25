@@ -6,8 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Pack Goal and Push
+    - name: Setup
       uses: ./.github/actions/setup
+    - name: Pack Goal and Push
       run: |
         cd Goal
         dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
