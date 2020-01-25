@@ -5,7 +5,7 @@ using System.IO;
 using LiteDB;
 using System.Reflection;
 
-namespace goal
+namespace Goal
 {
     class GoalEntry
     {
