@@ -4,21 +4,10 @@ using System.Text;
 using System.IO;
 using LiteDB;
 using System.Reflection;
+using Goal.Common;
 
 namespace Goal
 {
-    class GoalEntry
-    {
-        public int Id { get; set; }
-        public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.Now;
-        public string Description { get; set; } = "";
-
-        public override string ToString()
-        {
-            return string.Format("{0}\t{1}", this.Id, this.Description);
-        }
-    }
-
     class Program
     {
         static LiteDatabase OpenDB()

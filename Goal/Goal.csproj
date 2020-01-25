@@ -9,5 +9,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />
+    <ProjectReference Include="../Goal.Common/Goal.Common.csproj"/>
   </ItemGroup>
 </Project>
