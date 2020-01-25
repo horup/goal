@@ -1,5 +1,4 @@
 name: .NET Core CI
-
 on: [push]
 
 jobs:
@@ -7,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: ./.github/actions/setup
     - name: Pack Goal and Push
+      uses: ./.github/actions/setup
       run: |
         cd Goal
         dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
