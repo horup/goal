@@ -1,13 +1,25 @@
 using System;
 using System.IO;
 using LiteDB;
-using Goal.Common;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 
 namespace Goal.Server.Data
 {
+    public class GoalEntry
+    {
+        public int Id { get; set; }
+        
+        public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.Now;
+        public string Description { get; set; } = "";
+
+        public override string ToString()
+        {
+            return string.Format("{0}\t{1}", this.Id, this.Description);
+        }
+    }
+
     public class GoalDB
     {
         private readonly IConfiguration configuration; 

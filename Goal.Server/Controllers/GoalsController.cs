@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Goal.Server.Data;
 using System.Collections.Generic;
-using Goal.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -38,6 +37,12 @@ namespace Goal.Server.Controllers
                 Description = newg.Description
             };
             dB.Insert(g);
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody]int id)
+        {
+            dB.Delete(id);
         }
     }
 }
