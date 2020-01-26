@@ -18,14 +18,14 @@ namespace Goal.Server.Data
 
         private LiteDatabase OpenDB()
         {
-            var path = this.configuration.GetValue<string>("GoalDB:ConnectionString");
+            var path = this.configuration.GetValue<string>("GOALDB_CONNECTIONSTRING");
             var info = new FileInfo(path);
             if (!Directory.Exists(info.DirectoryName))
                 Directory.CreateDirectory(info.DirectoryName);
             return new LiteDatabase(info.FullName);
         }
 
-        public List<GoalEntry> ListEntries()
+        public List<GoalEntry> GetEntries()
         {
             var list = new List<GoalEntry>();
             using (var db = OpenDB())
@@ -38,6 +38,25 @@ namespace Goal.Server.Data
             }
 
             return list;
+        }
+
+        public void Delete(int id)
+        {
+            using (var db = OpenDB())
+            {
+                var col = db.GetCollection<GoalEntry>("goals");
+                col.Delete(id);
+            }
+        }
+
+        public int Insert(GoalEntry g)
+        {
+            using (var db = OpenDB())
+            {
+                var col = db.GetCollection<GoalEntry>("goals");
+               
+                return col.Insert(g);
+            }
         }
     }
 }

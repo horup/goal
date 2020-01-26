@@ -5,6 +5,7 @@ namespace Goal.Common
     public class GoalEntry
     {
         public int Id { get; set; }
+        
         public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.Now;
         public string Description { get; set; } = "";
 
