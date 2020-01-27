@@ -13,6 +13,12 @@ jobs:
       run: |
         cd Goal.Server
         dotnet publish --configuration Release --output ./output
+    - name: Deploy Web App
+      uses: Azure/webapps-deploy@v1
+      with:
+        public-profile: ${{secrets.PUBLISH_PROFILE}}
+        app-name: ${{secrets.APP_NAME}}
+        package: ./Goal.Server/output
     - name: Pack Goal and Push
       run: |
         cd Goal
