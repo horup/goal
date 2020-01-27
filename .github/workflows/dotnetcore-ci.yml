@@ -9,11 +9,12 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Pack Goal and Push
+    - name: Publish Goal.Server and Deploy
       run: |
         cd Goal.Server
-        dotnet build
-        cd ..
+        dotnet publish --configuration Release
+    - name: Pack Goal and Push
+      run: |
         cd Goal
         dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
         dotnet nuget push nuget/*.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
