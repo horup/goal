@@ -27,6 +27,7 @@ namespace GoalCmd
                 Directory.CreateDirectory(info.DirectoryName);
             return new LiteDatabase(info.FullName);
         }
+
         static void Add(string[] rest)
         {
             var s = rest.Aggregate((a, b) =>
@@ -54,6 +55,28 @@ namespace GoalCmd
             var v = asm.GetName().Version;
             Console.WriteLine("goal v" + v.ToString());
         }
+
+        static string Readline(string what)
+        {
+            Console.WriteLine(what);
+            return Console.ReadLine();
+        }
+        static void Init()
+        {
+            using (var db = OpenDB())
+            {
+                var c = db.GetCollection<Config>();
+                
+                var config = new Config()
+                {
+                    Uri = Readline("Uri")
+                };
+               
+                c.Upsert(config);
+            }
+        }
+
+
         static void Main(string[] args)
         {
             var api = CreateAPI();
@@ -65,6 +88,11 @@ namespace GoalCmd
                 var rest = args.TakeLast(args.Length - 1).ToArray();
                 switch (command)
                 {
+                    case "init":
+                    {
+                        Init();
+                        break;
+                    }
                     case "delete":
                         {
                             Delete(rest);
