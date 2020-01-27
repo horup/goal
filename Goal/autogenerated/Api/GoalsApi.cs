@@ -55,8 +55,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;GoalEntry&gt;</returns>
-        List<GoalEntry> Api1GoalsGet ();
+        /// <returns>List&lt;Goal&gt;</returns>
+        List<Goal> Api1GoalsGet ();
 
         /// <summary>
         /// 
@@ -65,8 +65,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;GoalEntry&gt;</returns>
-        ApiResponse<List<GoalEntry>> Api1GoalsGetWithHttpInfo ();
+        /// <returns>ApiResponse of List&lt;Goal&gt;</returns>
+        ApiResponse<List<Goal>> Api1GoalsGetWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -125,8 +125,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;GoalEntry&gt;</returns>
-        System.Threading.Tasks.Task<List<GoalEntry>> Api1GoalsGetAsync ();
+        /// <returns>Task of List&lt;Goal&gt;</returns>
+        System.Threading.Tasks.Task<List<Goal>> Api1GoalsGetAsync ();
 
         /// <summary>
         /// 
@@ -135,8 +135,8 @@ namespace Org.OpenAPITools.Api
         /// 
         /// </remarks>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;GoalEntry&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<GoalEntry>>> Api1GoalsGetAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (List&lt;Goal&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<Goal>>> Api1GoalsGetAsyncWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -389,10 +389,10 @@ namespace Org.OpenAPITools.Api
         ///  
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;GoalEntry&gt;</returns>
-        public List<GoalEntry> Api1GoalsGet ()
+        /// <returns>List&lt;Goal&gt;</returns>
+        public List<Goal> Api1GoalsGet ()
         {
-             Org.OpenAPITools.Client.ApiResponse<List<GoalEntry>> localVarResponse = Api1GoalsGetWithHttpInfo();
+             Org.OpenAPITools.Client.ApiResponse<List<Goal>> localVarResponse = Api1GoalsGetWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -400,8 +400,8 @@ namespace Org.OpenAPITools.Api
         ///  
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;GoalEntry&gt;</returns>
-        public Org.OpenAPITools.Client.ApiResponse< List<GoalEntry> > Api1GoalsGetWithHttpInfo ()
+        /// <returns>ApiResponse of List&lt;Goal&gt;</returns>
+        public Org.OpenAPITools.Client.ApiResponse< List<Goal> > Api1GoalsGetWithHttpInfo ()
         {
             Org.OpenAPITools.Client.RequestOptions localVarRequestOptions = new Org.OpenAPITools.Client.RequestOptions();
 
@@ -424,7 +424,7 @@ namespace Org.OpenAPITools.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get< List<GoalEntry> >("/api/1/goals", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get< List<Goal> >("/api/1/goals", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -439,10 +439,10 @@ namespace Org.OpenAPITools.Api
         ///  
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;GoalEntry&gt;</returns>
-        public async System.Threading.Tasks.Task<List<GoalEntry>> Api1GoalsGetAsync ()
+        /// <returns>Task of List&lt;Goal&gt;</returns>
+        public async System.Threading.Tasks.Task<List<Goal>> Api1GoalsGetAsync ()
         {
-             Org.OpenAPITools.Client.ApiResponse<List<GoalEntry>> localVarResponse = await Api1GoalsGetAsyncWithHttpInfo();
+             Org.OpenAPITools.Client.ApiResponse<List<Goal>> localVarResponse = await Api1GoalsGetAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -451,8 +451,8 @@ namespace Org.OpenAPITools.Api
         ///  
         /// </summary>
         /// <exception cref="Org.OpenAPITools.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;GoalEntry&gt;)</returns>
-        public async System.Threading.Tasks.Task<Org.OpenAPITools.Client.ApiResponse<List<GoalEntry>>> Api1GoalsGetAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;Goal&gt;)</returns>
+        public async System.Threading.Tasks.Task<Org.OpenAPITools.Client.ApiResponse<List<Goal>>> Api1GoalsGetAsyncWithHttpInfo ()
         {
 
             Org.OpenAPITools.Client.RequestOptions localVarRequestOptions = new Org.OpenAPITools.Client.RequestOptions();
@@ -477,7 +477,7 @@ namespace Org.OpenAPITools.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<GoalEntry>>("/api/1/goals", localVarRequestOptions, this.Configuration);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<Goal>>("/api/1/goals", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {

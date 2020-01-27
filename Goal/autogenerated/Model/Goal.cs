@@ -26,18 +26,18 @@ using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 namespace Org.OpenAPITools.Model
 {
     /// <summary>
-    /// GoalEntry
+    /// Goal
     /// </summary>
     [DataContract]
-    public partial class GoalEntry :  IEquatable<GoalEntry>, IValidatableObject
+    public partial class Goal :  IEquatable<Goal>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GoalEntry" /> class.
+        /// Initializes a new instance of the <see cref="Goal" /> class.
         /// </summary>
         /// <param name="id">id.</param>
         /// <param name="timestamp">timestamp.</param>
         /// <param name="description">description.</param>
-        public GoalEntry(int id = default(int), DateTime timestamp = default(DateTime), string description = default(string))
+        public Goal(int id = default(int), DateTime timestamp = default(DateTime), string description = default(string))
         {
             this.Description = description;
             this.Id = id;
@@ -70,7 +70,7 @@ namespace Org.OpenAPITools.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class GoalEntry {\n");
+            sb.Append("class Goal {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Timestamp: ").Append(Timestamp).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
@@ -94,15 +94,15 @@ namespace Org.OpenAPITools.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as GoalEntry);
+            return this.Equals(input as Goal);
         }
 
         /// <summary>
-        /// Returns true if GoalEntry instances are equal
+        /// Returns true if Goal instances are equal
         /// </summary>
-        /// <param name="input">Instance of GoalEntry to be compared</param>
+        /// <param name="input">Instance of Goal to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(GoalEntry input)
+        public bool Equals(Goal input)
         {
             if (input == null)
                 return false;
