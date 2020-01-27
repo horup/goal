@@ -7,7 +7,7 @@ using System.Reflection;
 using Org.OpenAPITools.Client;
 using Org.OpenAPITools.Api;
 
-namespace Goal
+namespace GoalCmd
 {
     class Program
     {
