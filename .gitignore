@@ -2,3 +2,4 @@ bin
 obj
 goal.db
 *.nupkg
+output

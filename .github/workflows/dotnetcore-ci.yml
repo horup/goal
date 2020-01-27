@@ -9,10 +9,10 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Publish Goal.Server and Deploy
+    - name: Publish Goal.Server
       run: |
         cd Goal.Server
-        dotnet publish --configuration Release
+        dotnet publish --configuration Release --output ./output
     - name: Pack Goal and Push
       run: |
         cd Goal
