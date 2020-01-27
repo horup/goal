@@ -4,12 +4,19 @@ using System.Text;
 using System.IO;
 using LiteDB;
 using System.Reflection;
-using Goal.Common;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Api;
 
 namespace Goal
 {
     class Program
     {
+        static GoalsApi CreateAPI(string uri = "http://localhost:5000")
+        {
+            var c = new GoalsApi(uri);
+            return c;
+        }
+
         static LiteDatabase OpenDB()
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
@@ -30,34 +37,16 @@ namespace Goal
             // add to DB
             using (var db = OpenDB())
             {
-                var col = db.GetCollection<GoalEntry>("goals");
-                var g = new GoalEntry()
-                {
-                    Description = s
-                };
-
-                col.Insert(g);
+                
             }
         }
         static void List(string[] args)
         {
-            using (var db = OpenDB())
-            {
-                var col = db.GetCollection<GoalEntry>("goals");
-                foreach (var g in col.FindAll().Reverse())
-                {
-                    Console.WriteLine(g.ToString());
-                }
-            }
+           
         }
         static void Delete(string[] args)
         {
-            using (var db = OpenDB())
-            {
-                var id = int.Parse(args[0]);
-                var col = db.GetCollection<GoalEntry>("goals");
-                col.Delete(id);
-            }
+            
         }
         static void Version()
         {
@@ -67,6 +56,9 @@ namespace Goal
         }
         static void Main(string[] args)
         {
+            var api = CreateAPI();
+            var test = api.Api1GoalsGet();
+            
             try
             {
                 var command = args[0];

@@ -8,10 +8,9 @@
     <PackageOutputPath>./nuget</PackageOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="1.6.0" />
     <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="13.2.2" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
-    <ProjectReference Include="../Goal.Common/Goal.Common.csproj" />
   </ItemGroup>
 </Project>
