@@ -11,6 +11,9 @@ jobs:
         dotnet-version: 3.1.100
     - name: Pack Goal and Push
       run: |
+        cd Goal.Server
+        dotnet build
+        cd ..
         cd Goal
         dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
         dotnet nuget push nuget/*.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
