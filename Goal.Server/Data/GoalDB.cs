@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Goal.Server.Data
 {
-    public class GoalEntry
+    public class Goal
     {
         public int Id { get; set; }
         
@@ -37,12 +37,12 @@ namespace Goal.Server.Data
             return new LiteDatabase(info.FullName);
         }
 
-        public List<GoalEntry> GetEntries()
+        public List<Goal> GetEntries()
         {
-            var list = new List<GoalEntry>();
+            var list = new List<Goal>();
             using (var db = OpenDB())
             {
-                var col = db.GetCollection<GoalEntry>("goals");
+                var col = db.GetCollection<Goal>("goals");
                 foreach (var g in col.FindAll().Reverse())
                 {
                    list.Add(g);
@@ -56,16 +56,16 @@ namespace Goal.Server.Data
         {
             using (var db = OpenDB())
             {
-                var col = db.GetCollection<GoalEntry>("goals");
+                var col = db.GetCollection<Goal>("goals");
                 col.Delete(id);
             }
         }
 
-        public int Insert(GoalEntry g)
+        public int Insert(Goal g)
         {
             using (var db = OpenDB())
             {
-                var col = db.GetCollection<GoalEntry>("goals");
+                var col = db.GetCollection<Goal>("goals");
                
                 return col.Insert(g);
             }

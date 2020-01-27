@@ -4,9 +4,6 @@
 			"path": "Goal.Server"
 		},
 		{
-			"path": "Goal.Common"
-		},
-		{
 			"path": "Goal"
 		},
 		{

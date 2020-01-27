@@ -17,7 +17,7 @@ namespace Goal.Server.Controllers
         }
 
         [HttpGet]
-        public List<GoalEntry> Get()
+        public List<Data.Goal> Get()
         {
             return dB.GetEntries();
         }
@@ -31,7 +31,7 @@ namespace Goal.Server.Controllers
         [HttpPost]
         public void Post([FromBody]PostGoal newg)
         {
-            var g = new GoalEntry()
+            var g = new Data.Goal()
             {
                 Timestamp = DateTimeOffset.Now,
                 Description = newg.Description
