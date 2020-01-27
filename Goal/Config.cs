@@ -6,7 +6,7 @@ namespace GoalCmd
         {
             get
             {
-                return 0;
+                return 1;
             }
         }
         public string Uri {get;set;}
