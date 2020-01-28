@@ -58,7 +58,7 @@ namespace GoalCmd
 
         static string Readline(string what)
         {
-            Console.WriteLine(what);
+            Console.Write(what + ":");
             return Console.ReadLine();
         }
         static void Init()
@@ -76,51 +76,103 @@ namespace GoalCmd
             }
         }
 
+        static Config Config = null;
+        static void ParseConfig(string[] args)
+        {
+            using (var db = OpenDB())
+            {
+                var c = db.GetCollection<Config>();
+                
+                var config = new Config()
+                {
+                    Uri = Readline("Uri")
+                };
+               
+                c.Upsert(config);
+            }
+
+            Console.WriteLine("goal configuration completed");
+        }
 
         static void Main(string[] args)
         {
-            var api = CreateAPI();
-            var test = api.Api1GoalsGet();
-            
+            if (args.Length == 0)
+            {
+                Console.WriteLine("no arguments provided");
+                return;
+            }
+
+            if (args[0] != "config")
+            {
+                using (var db = OpenDB())
+                {
+                    var col = db.GetCollection<Config>();
+                    Config = col.FindById(1);
+                    if (Config == null)
+                    {
+                        Console.WriteLine("goal not configured, please run 'goal config' to configure goal");
+                        return;
+                    }
+                }
+            }
+
+
+
             try
             {
-                var command = args[0];
+                var first = args[0].ToLower();
                 var rest = args.TakeLast(args.Length - 1).ToArray();
-                switch (command)
+                switch (first)
                 {
-                    case "init":
-                    {
-                        Init();
+                    case "config":
+                        ParseConfig(rest);
                         break;
-                    }
-                    case "delete":
-                        {
-                            Delete(rest);
-                            break;
-                        }
-                    case "version":
-                        {
-                            Version();
-                            break;
-                        }
-                    case "add":
-                        {
-                            Add(rest);
-                            break;
-                        }
-                    case "list":
-                        {
-                            List(rest);
-                            break;
-                        }
+
                     default:
-                        throw new Exception();
+                        Console.WriteLine("unknown command");
+                        break;
                 }
+
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                throw e;
             }
+            /*
+                        try
+                        {
+                            var command = args[0];
+                            var rest = args.TakeLast(args.Length - 1).ToArray();
+                            switch (command)
+                            {
+                                case "delete":
+                                    {
+                                        Delete(rest);
+                                        break;
+                                    }
+                                case "version":
+                                    {
+                                        Version();
+                                        break;
+                                    }
+                                case "add":
+                                    {
+                                        Add(rest);
+                                        break;
+                                    }
+                                case "list":
+                                    {
+                                        List(rest);
+                                        break;
+                                    }
+                                default:
+                                    throw new Exception();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }*/
         }
     }
 }
