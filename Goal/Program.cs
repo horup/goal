@@ -171,41 +171,6 @@ namespace GoalCmd
             {
                 throw e;
             }
-            /*
-                        try
-                        {
-                            var command = args[0];
-                            var rest = args.TakeLast(args.Length - 1).ToArray();
-                            switch (command)
-                            {
-                                case "delete":
-                                    {
-                                        Delete(rest);
-                                        break;
-                                    }
-                                case "version":
-                                    {
-                                        Version();
-                                        break;
-                                    }
-                                case "add":
-                                    {
-                                        Add(rest);
-                                        break;
-                                    }
-                                case "list":
-                                    {
-                                        List(rest);
-                                        break;
-                                    }
-                                default:
-                                    throw new Exception();
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.ToString());
-                        }*/
         }
     }
 }
