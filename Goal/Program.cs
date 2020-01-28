@@ -11,9 +11,11 @@ namespace GoalCmd
 {
     class Program
     {
-        static GoalsApi CreateAPI(string uri = "http://localhost:5000")
+        static Config Config = null;
+
+        static GoalsApi CreateAPI()
         {
-            var c = new GoalsApi(uri);
+            var c = new GoalsApi(Config.Uri);
             return c;
         }
 
@@ -76,7 +78,6 @@ namespace GoalCmd
             }
         }
 
-        static Config Config = null;
         static void ParseConfig(string[] args)
         {
             using (var db = OpenDB())
@@ -92,6 +93,31 @@ namespace GoalCmd
             }
 
             Console.WriteLine("goal configuration completed");
+        }
+
+        static void ParseList(string[] args)
+        {
+            var api = CreateAPI();
+            var goals = api.Api1GoalsGet();
+            foreach (var g in goals)
+            {
+                Console.WriteLine($"{g.Id}\t{g.Description}");
+            }
+        }
+
+        static void ParseAdd(string[] args)
+        {
+            var api = CreateAPI();
+            var description = Readline("Description");
+            var g = new Org.OpenAPITools.Model.PostGoal(description);
+            api.Api1GoalsPost(g);
+        }
+
+        static void ParseDelete(string[] args)
+        {
+            var api = CreateAPI();
+            var id = int.Parse(Readline("id"));
+            api.Api1GoalsDelete(id);
         }
 
         static void Main(string[] args)
@@ -116,8 +142,6 @@ namespace GoalCmd
                 }
             }
 
-
-
             try
             {
                 var first = args[0].ToLower();
@@ -126,6 +150,15 @@ namespace GoalCmd
                 {
                     case "config":
                         ParseConfig(rest);
+                        break;
+                    case "list":
+                        ParseList(rest);
+                        break;
+                    case "add":
+                        ParseAdd(rest);
+                        break;
+                    case "delete":
+                        ParseDelete(rest);
                         break;
 
                     default:
