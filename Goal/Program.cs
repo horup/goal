@@ -113,6 +113,12 @@ namespace GoalCmd
             api.Api1GoalsPost(g);
         }
 
+        static void ParseVersion()
+        {
+            var v = Assembly.GetExecutingAssembly().GetName().Version;
+            Console.WriteLine($"goal {v.ToString()}");
+        }
+
         static void ParseDelete(string[] args)
         {
             var api = CreateAPI();
@@ -159,6 +165,9 @@ namespace GoalCmd
                         break;
                     case "delete":
                         ParseDelete(rest);
+                        break;
+                    case "version":
+                        ParseVersion();
                         break;
 
                     default:
