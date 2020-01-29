@@ -3,3 +3,6 @@ obj
 goal.db
 *.nupkg
 output
+node_modules
+dist
+.cache
