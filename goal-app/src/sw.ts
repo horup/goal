@@ -1,27 +1,3 @@
-/*fetch('parcel-manifest.json').then(resp=>
-{
-    console.log(v);
-    self.addEventListener('install', (e:any)=>
-    {
-        caches.open('goal').then(cache=>
-        {
-            return cache.addAll(
-                [
-                    
-                ]
-            )
-        });
-        console.log("Service Worker Installed");
-    });
-
-    self.addEventListener('fetch', (e:any)=>
-    {
-        e.respondWith(caches.match(e.request));
-    // console.log("Fetching " + JSON.stringify(e));
-    });
-});*/
-
-
 self.addEventListener('install', async (e:any)=>
 {
     console.log("Service Worker: Starting Installation");
@@ -29,6 +5,10 @@ self.addEventListener('install', async (e:any)=>
     {
         await cache.add('/');
         console.log("/ added to cache");
+        await fetch('/').then(async resp=>
+        {
+          
+        });
         await fetch('parcel-manifest.json').then(async resp=>
         {
             let files = await resp.json();

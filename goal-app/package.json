@@ -14,7 +14,7 @@
         384,
         512
       ],
-      "genFavicons": false
+      "genFavicons": true
     }
   },
   "main": "index.js",
