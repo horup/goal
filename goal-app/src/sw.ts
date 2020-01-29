@@ -1,7 +1,9 @@
+const cacheName = "goal 1.0.0";
+
 self.addEventListener('install', async (e:any)=>
 {
     console.log("Service Worker: Starting Installation");
-    await caches.open('goal').then(async cache=>
+    await caches.open(cacheName).then(async cache=>
     {
         await cache.add('/');
         console.log("/ added to cache");
@@ -37,6 +39,15 @@ self.addEventListener('install', async (e:any)=>
 
 });
 
+
+self.addEventListener('activate', async (e:any)=>
+{
+    console.log("Service Worker: Active");
+   /* await caches.open("goal").then(async (cache)=>
+    {
+        caches.delete("goal");
+    });*/
+});
 
 self.addEventListener('fetch', async (e:any)=>
 {
