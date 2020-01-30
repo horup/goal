@@ -17,8 +17,8 @@ self.addEventListener('install', (e:any)=>
                 let m = index.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i);
                 for (let file of m)
                 {
-                    await cache.add(file);
                     console.log(file + " added to cache");
+                    await cache.add(file);
                 }
             });
             await fetch('parcel-manifest.json').then(async resp=>
