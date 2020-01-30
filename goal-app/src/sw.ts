@@ -37,9 +37,6 @@ self.addEventListener('install', (e:any)=>
 
             await cache.add("/manifest.webmanifest");
             console.log("/manifest.webmanifest" + " added to cache");
-
-            await cache.add("favicon-32x32.147bdf61.png");
-            await cache.add("favicon-16x16.7444da75.png");
         });
 
         console.log("Service Worker: Installation Done");
