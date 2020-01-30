@@ -1,9 +1,11 @@
-const cacheName = "goal 1.0.0";
+declare var process;
+const version = "goal 1.0.3-" + process.env.BUILD;
+console.log(version);
 
 self.addEventListener('install', async (e:any)=>
 {
     console.log("Service Worker: Starting Installation");
-    await caches.open(cacheName).then(async cache=>
+    await caches.open(version).then(async cache=>
     {
         await cache.add('/');
         console.log("/ added to cache");
@@ -33,10 +35,12 @@ self.addEventListener('install', async (e:any)=>
 
         await cache.add("/manifest.webmanifest");
         console.log("/manifest.webmanifest" + " added to cache");
+
+        await cache.add("favicon-32x32.147bdf61.png");
+        await cache.add("favicon-16x16.7444da75.png");
     });
 
     console.log("Service Worker: Installation Done");
-
 });
 
 
