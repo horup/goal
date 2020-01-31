@@ -53,7 +53,7 @@ namespace Goal.Server
             }
 
             app.UseRouting();
-            app.UseCors(b=>b.WithOrigins("*"));
+            app.UseCors(b=>b.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
