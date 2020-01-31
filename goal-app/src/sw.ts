@@ -71,5 +71,16 @@ self.addEventListener('activate', async (e:any)=>
 
 self.addEventListener('fetch', async (e:any)=>
 {
-    e.respondWith(caches.match(e.request));
+    let req = e.request as Request;
+    if (req.method != "GET")
+        return;
+
+    e.respondWith((async ()=> {
+        let resp = await caches.match(req);
+        if (resp)
+            return resp;
+        else
+            return fetch(req);
+        
+    })());
 });
