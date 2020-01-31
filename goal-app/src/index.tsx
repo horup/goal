@@ -16,10 +16,10 @@ if('serviceWorker' in navigator)
     .then(function() { console.log('Service Worker Registered'); });
 }
 
-const GoalRow = ({goal}:{goal:Goal})=>{
+const GoalRow = ({goal, onClick}:{goal:Goal, onClick:(goal:Goal)=>any})=>{
   return (
     <div>
-      <Typography color="textSecondary"  style={{float:'left', width:'32px'}}>
+      <Typography onClick={()=>onClick != null ? onClick(goal) : undefined} color="textSecondary" style={{float:'left', cursor:'pointer', width:'32px'}}>
         {goal.id}
       </Typography>
       <Typography  align="left">
@@ -37,8 +37,8 @@ const Index = ()=>
     const refresh = async ()=>
     {
       let e = await api.api1GoalsGet();
-      console.log(e.length);
       setGoals(e);
+      setDescription("");
     }
 
     React.useEffect(()=>
@@ -58,17 +58,26 @@ const Index = ()=>
       await refresh();
     }
 
+    const deleteGoal = async (goal:Goal)=>
+    {
+      await api.api1GoalsDelete({
+        body:goal.id
+      });
+
+      await refresh();
+    };
+
     return (
         <Container maxWidth="sm">
           <div style={{ marginTop: 24}}>
             <div style={{display:'flex', marginBottom:24}}>
-              <TextField onChange={(e)=>setDescription(e.target.value)} style={{width:'100%', marginRight:16}} id="standard-basic" label="Description" />
+              <TextField onChange={(e)=>setDescription(e.target.value)} value={description} style={{width:'100%', marginRight:16}} id="standard-basic" label="Description" />
               <Button disabled={description == ""} onClick={()=>addGoal()} variant="outlined">Insert</Button>
             </div>
             {goals.map((g, i)=>
             {
               return (
-                <GoalRow goal={g} key={i}/>
+                <GoalRow onClick={deleteGoal} goal={g} key={i}/>
               )
             })}
           </div>
