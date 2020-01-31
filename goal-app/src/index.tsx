@@ -60,11 +60,14 @@ const Index = ()=>
 
     const deleteGoal = async (goal:Goal)=>
     {
-      await api.api1GoalsDelete({
-        body:goal.id
-      });
+      if (confirm("Do you wish to delete this goal?"))
+      {
+        await api.api1GoalsDelete({
+          body:goal.id
+        });
 
-      await refresh();
+        await refresh();
+      }
     };
 
     return (
