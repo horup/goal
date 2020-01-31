@@ -34,12 +34,11 @@ const Index = ()=>
     const [goals, setGoals] = React.useState<Goal[]>([]);
     const [description, setDescription] = React.useState<string>("");
 
-    const refresh = ()=>
+    const refresh = async ()=>
     {
-      api.api1GoalsGet().then((e)=>
-      {
-        setGoals(e);
-      });
+      let e = await api.api1GoalsGet();
+      console.log(e.length);
+      setGoals(e);
     }
 
     React.useEffect(()=>
@@ -47,18 +46,16 @@ const Index = ()=>
       refresh();
     }, [])
 
-    const addGoal = ()=>
+    const addGoal = async ()=>
     {
-      api.api1GoalsPost({
+      await api.api1GoalsPost({
         postGoal:
         {
           description:description
         }
-      }).then()
-      {
-        setDescription("");
-        refresh();
-      }
+      });
+
+      await refresh();
     }
 
     return (
