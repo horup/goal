@@ -12,10 +12,16 @@
   <Target Name="BuildApp" BeforeTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(ProjectDir)/../goal-app" Command="npm run build"/>
   </Target>
-  <Target Name="CopyApp" BeforeTargets="BuildApp">
+  <Target Name="CopyApp" AfterTargets="BuildApp">
     <ItemGroup>
       <App Include="../goal-app/dist/**"/>
     </ItemGroup>
     <Copy SourceFiles="@(App)" DestinationFolder="$(PublishDir)/wwwroot"/>
+  </Target>
+  <Target Name="DebugResults" AfterTargets="Publish">
+    <ItemGroup>
+      <Files Include="$(PublishDir)/**"/>
+    </ItemGroup>
+    <Message Text="Files in output: @(Files)" Importance="high"/>
   </Target>
 </Project>
