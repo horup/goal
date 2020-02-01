@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.SpaServices.Extensions;
 
 namespace Goal.Server
 {
@@ -27,6 +28,7 @@ namespace Goal.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSpaStaticFiles(config => config.RootPath = "wwwroot");
             services.AddControllers();
             services.AddTransient<GoalDB>();
             services.AddSwaggerGen(c =>
@@ -52,6 +54,8 @@ namespace Goal.Server
                 app.UseHttpsRedirection();
             }
 
+         
+
             app.UseRouting();
             app.UseCors(b=>b.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
             app.UseAuthorization();
@@ -59,6 +63,13 @@ namespace Goal.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+          //  app.UseDefaultFiles();
+            app.UseSpaStaticFiles();
+            app.UseSpa(app=>
+            {
+
             });
         }
     }
