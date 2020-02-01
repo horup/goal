@@ -9,10 +9,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>3e811cea-e4bf-4e09-b677-977038b32f59</UserSecretsId>
   </PropertyGroup>
-  <Target Name="app" BeforeTargets="ComputeFilesToPublish">
+  <Target Name="BuildApp" BeforeTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(ProjectDir)/../goal-app" Command="npm run build"/>
+  </Target>
+  <Target Name="CopyApp" BeforeTargets="BuildApp">
     <ItemGroup>
-      <None Include="../goal-app/dist/**"/>
+      <App Include="../goal-app/dist/**"/>
     </ItemGroup>
-    <Copy SourceFiles="@(None)" DestinationFolder="wwwroot"/>
+    <Copy SourceFiles="@(App)" DestinationFolder="$(PublishDir)/wwwroot"/>
   </Target>
 </Project>
