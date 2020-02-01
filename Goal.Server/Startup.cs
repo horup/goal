@@ -13,11 +13,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.SpaServices.Extensions;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Goal.Server
 {
     public class Startup
     {
+        private readonly IWebHostEnvironment _env;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +43,14 @@ namespace Goal.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".webmanifest"] = "application/manifest+json";
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ContentTypeProvider = provider
+            });
+
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -54,7 +65,7 @@ namespace Goal.Server
                 app.UseHttpsRedirection();
             }
 
-         
+
 
             app.UseRouting();
             app.UseCors(b=>b.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
@@ -65,11 +76,15 @@ namespace Goal.Server
                 endpoints.MapControllers();
             });
 
-          //  app.UseDefaultFiles();
-            app.UseSpaStaticFiles();
-            app.UseSpa(app=>
-            {
 
+
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:1234");
+                }
             });
         }
     }
