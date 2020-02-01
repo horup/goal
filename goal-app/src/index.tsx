@@ -5,7 +5,7 @@ import { Container, Typography, TextField, Button, LinearProgress } from '@mater
 declare var process;
 let api = new GoalsApi(
     new Configuration({
-        basePath:process.env.BASE_PATH != null ? process.env.BASE_PATH  : ""
+        basePath:process.env.BASE_PATH != null ? process.env.BASE_PATH  : location.origin
     })
 );
 

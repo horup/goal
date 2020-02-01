@@ -20,8 +20,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "parcel ./src/index.html",
-    "start": "npm install --only=prod && node index.js",
+    "start": "parcel ./src/index.html",
     "build": "npm install && parcel build ./src/index.html"
   },
   "author": "",
