@@ -16,8 +16,8 @@ jobs:
     - name: Deploy Web App
       uses: Azure/webapps-deploy@v1
       with:
-        publish-profile: ${{secrets.PUBLISH_PROFILE}}
-        app-name: ${{secrets.APP_NAME}}
+        publish-profile: ${{secrets.PUBLISH_PROFILE_APP}}
+        app-name: ${{secrets.AZURE_WEBAPP_NAME}}
         package: ./Goal.Server/output
     - name: Pack Goal and Push
       run: |
