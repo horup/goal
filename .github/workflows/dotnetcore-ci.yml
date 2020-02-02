@@ -1,6 +1,5 @@
 name: .NET Core CI
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,16 +10,13 @@ jobs:
         dotnet-version: 3.1.100
     - name: Publish Goal.Server
       run: |
+        export VERSION=$(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M)
+        echo $VERSION
         cd Goal.Server
-        dotnet publish --configuration Release --output ./output
+        dotnet publish --configuration Release --output ./output /p:Version="$VERSION"
     - name: Deploy Web App
       uses: Azure/webapps-deploy@v1
       with:
         publish-profile: ${{secrets.PUBLISH_PROFILE_APP}}
         app-name: ${{secrets.AZURE_WEBAPP_NAME}}
         package: ./Goal.Server/output
-    - name: Pack Goal and Push
-      run: |
-        cd Goal
-        dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
-        dotnet nuget push nuget/*.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
