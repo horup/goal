@@ -108,6 +108,9 @@ const Index = ()=>
               Failure to get goals!
             </Typography>
           </Snackbar>
+          <Typography variant="caption" color="textSecondary" style={{position:'fixed', bottom: 0, width:'100%'}}>
+            v{process.env.VERSION} 
+          </Typography>
         </div>
       );
 }
