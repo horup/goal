@@ -1,6 +1,7 @@
 name: .NET Core CI
 on: [push]
-
+env:
+  VERSION: $(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M) 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
     - name: Publish Goal.Server
       run: |
         cd Goal.Server
-        dotnet publish --configuration Release --output ./output
+        dotnet publish --configuration Release --output ./output /p:Version="${{env.VERSION}}$
     - name: Deploy Web App
       uses: Azure/webapps-deploy@v1
       with:
