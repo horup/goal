@@ -1,5 +1,5 @@
 declare var process;
-const version = "goal 1.0.3-" + process.env.BUILD;
+const version = "goal v" + process.env.VERSION;
 console.log(version);
 
 self.addEventListener('install', (e:any)=>
