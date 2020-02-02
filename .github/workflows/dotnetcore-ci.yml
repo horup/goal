@@ -13,7 +13,7 @@ jobs:
     - name: Publish Goal.Server
       run: |
         cd Goal.Server
-        dotnet publish --configuration Release --output ./output /p:Version="${{env.VERSION}}$
+        dotnet publish --configuration Release --output ./output /p:Version="${{env.VERSION}}"
     - name: Deploy Web App
       uses: Azure/webapps-deploy@v1
       with:
