@@ -19,8 +19,3 @@ jobs:
         publish-profile: ${{secrets.PUBLISH_PROFILE_APP}}
         app-name: ${{secrets.AZURE_WEBAPP_NAME}}
         package: ./Goal.Server/output
-    - name: Pack Goal and Push
-      run: |
-        cd Goal
-        dotnet pack --configuration Release --version-suffix "ci-$(date +%s)"
-        dotnet nuget push nuget/*.nupkg -s https://www.nuget.org -k ${{secrets.NUGET_KEY}}
