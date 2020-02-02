@@ -10,7 +10,7 @@ jobs:
         dotnet-version: 3.1.100
     - name: Publish Goal.Server
       run: |
-        export VERSION=$($(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M))
+        export VERSION=$(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M)
         echo $VERSION
         cd Goal.Server
         dotnet publish --configuration Release --output ./output /p:Version="$VERSION"
