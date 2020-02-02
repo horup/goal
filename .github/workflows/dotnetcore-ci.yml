@@ -1,7 +1,5 @@
 name: .NET Core CI
 on: [push]
-env:
-  VERSION: $($(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M)) 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,9 +10,10 @@ jobs:
         dotnet-version: 3.1.100
     - name: Publish Goal.Server
       run: |
-        set VERSION=
+        export VERSION=$($(date +%Y).$(date +%m).$(date +%d).$(date +%H)$(date +%M))
+        echo $VERSION
         cd Goal.Server
-        dotnet publish --configuration Release --output ./output /p:Version="${{env.VERSION}}"
+        dotnet publish --configuration Release --output ./output /p:Version="$VERSION"
     - name: Deploy Web App
       uses: Azure/webapps-deploy@v1
       with:
