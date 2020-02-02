@@ -19,8 +19,6 @@ namespace Goal.Server
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -65,8 +63,6 @@ namespace Goal.Server
                 app.UseHttpsRedirection();
             }
 
-
-
             app.UseRouting();
             app.UseCors(b=>b.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
             app.UseAuthorization();
@@ -75,8 +71,6 @@ namespace Goal.Server
             {
                 endpoints.MapControllers();
             });
-
-
 
             app.UseSpaStaticFiles();
             app.UseSpa(spa =>
