@@ -14,7 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.SpaServices.Extensions;
 using Microsoft.AspNetCore.StaticFiles;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using System.Linq;
 namespace Goal.Server
 {
     public class Startup
@@ -31,6 +33,18 @@ namespace Goal.Server
         {
             services.AddSpaStaticFiles(config => config.RootPath = "wwwroot");
             services.AddControllers();
+            services.AddAuthentication(options=>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme; 
+            })
+            .AddCookie()
+            .AddGoogle(options=>
+            {
+                options.ClientId = Configuration.GetValue<string>("GOOGLE_CLIENT_ID");
+                options.ClientSecret = Configuration.GetValue<string>("GOOGLE_CLIENT_SECRET");
+            });
+
             services.AddTransient<GoalDB>();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +57,21 @@ namespace Goal.Server
         {
             FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".webmanifest"] = "application/manifest+json";
+
+            
+
+            app.UseAuthentication();
+            app.Use(async (context, next)=>
+            {
+                if (context.Request.Path.Value.StartsWith("/api")
+                    && !context.User.Identity.IsAuthenticated)
+                {
+                    context.Response.StatusCode = 401;
+                    return;
+                }
+                    
+                await next.Invoke();
+            });
             app.UseStaticFiles(new StaticFileOptions()
             {
                 ContentTypeProvider = provider

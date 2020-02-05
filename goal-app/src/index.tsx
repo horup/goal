@@ -48,6 +48,10 @@ const Index = ()=>
       }
       catch(e)
       {
+        if (e.status == 401)
+        {
+          window.location.href = "/login";
+        }
         setShowAlert(true);
       }
       finally

@@ -2,6 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
@@ -10,18 +12,18 @@
     <UserSecretsId>3e811cea-e4bf-4e09-b677-977038b32f59</UserSecretsId>
   </PropertyGroup>
   <Target Name="BuildApp" BeforeTargets="ComputeFilesToPublish">
-    <Exec WorkingDirectory="$(ProjectDir)/../goal-app" Command="npm run build"/>
+    <Exec WorkingDirectory="$(ProjectDir)/../goal-app" Command="npm run build" />
   </Target>
   <Target Name="CopyApp" AfterTargets="BuildApp">
     <ItemGroup>
-      <App Include="../goal-app/dist/**"/>
+      <App Include="../goal-app/dist/**" />
     </ItemGroup>
-    <Copy SourceFiles="@(App)" DestinationFolder="$(PublishDir)/wwwroot"/>
+    <Copy SourceFiles="@(App)" DestinationFolder="$(PublishDir)/wwwroot" />
   </Target>
   <Target Name="DebugResults" AfterTargets="Publish">
     <ItemGroup>
-      <Files Include="$(PublishDir)/**"/>
+      <Files Include="$(PublishDir)/**" />
     </ItemGroup>
-    <Message Text="Files in output: @(Files)" Importance="high"/>
+    <Message Text="Files in output: @(Files)" Importance="high" />
   </Target>
 </Project>

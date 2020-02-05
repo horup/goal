@@ -3,12 +3,14 @@ using Goal.Server.Data;
 using System.Collections.Generic;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Goal.Server.Controllers
 {
     [ApiController]
     [Route("api/1/goals")]
-    public class GoalsController
+    [Authorize]
+    public class GoalsController : ControllerBase
     {
         private GoalDB dB;
         public GoalsController(GoalDB db)
