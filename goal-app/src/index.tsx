@@ -92,6 +92,9 @@ const Index = ()=>
 
     return (
         <div>
+          <Typography variant="caption" color="textSecondary" style={{position:'fixed', bottom: 0, width:'100%'}}>
+            v{process.env.VERSION} 
+          </Typography>
           <LinearProgress style={{visibility:refreshing ? undefined : 'hidden'}} />
           <Container maxWidth="sm">
             <div style={{ marginTop: 24}}>
@@ -112,9 +115,7 @@ const Index = ()=>
               Failure to get goals!
             </Typography>
           </Snackbar>
-          <Typography variant="caption" color="textSecondary" style={{position:'fixed', bottom: 0, width:'100%'}}>
-            v{process.env.VERSION} 
-          </Typography>
+         
         </div>
       );
 }
