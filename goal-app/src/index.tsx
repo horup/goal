@@ -113,15 +113,13 @@ const Index = ()=>
             v{process.env.VERSION} 
           </Typography>
           <div>
-            <AppBar position="static" style={{marginBottom:'16px'}}>
-              <Toolbar>
+            <AppBar position="static">
+              <Toolbar variant="dense"> 
+                <Typography variant="h6" style={{flexGrow:1}}>
+                </Typography>
                 <IconButton ref={menuRef} onClick={()=>handleOpen()} edge="start" color="inherit" aria-label="menu">
                   <MenuIcon/>
                 </IconButton>
-                <Typography variant="h6" style={{flexGrow:1}}>
-                
-                </Typography>
-                <Button color="inherit">Log</Button>
               </Toolbar>
             </AppBar>
 
@@ -132,7 +130,7 @@ const Index = ()=>
           </div>
 
           <LinearProgress style={{visibility:refreshing ? undefined : 'hidden'}} />
-          <Container maxWidth="sm">
+          <Container maxWidth="sm" style={{marginTop:'16px'}}>
             <Switch>
               <Route path="/log">
                 <div>
