@@ -58,8 +58,6 @@ namespace Goal.Server
             FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".webmanifest"] = "application/manifest+json";
 
-            
-
             app.UseAuthentication();
             app.Use(async (context, next)=>
             {

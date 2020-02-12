@@ -46,6 +46,7 @@ export const Header = ({refreshing}:IProps)=>
             <Menu anchorEl={menuRef.current} open={showMenu} onClose={handleClose} keepMounted>
               <MenuItem onClick={()=>handleClose("/")}>Goals</MenuItem>
               <MenuItem onClick={()=>handleClose("/log")}>Log</MenuItem>
+              <MenuItem onClick={()=>window.location.replace("/logout")}>Logout</MenuItem>
             </Menu>
           </div>
 
