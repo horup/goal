@@ -5,6 +5,7 @@ import { Container, Typography, TextField, Button, LinearProgress, Snackbar, App
 import {Router, Switch, Route} from 'react-router-dom';
 import history from './history';
 import { Header } from './Header';
+import {Me} from './types';
 
 declare var process;
 let api = new GoalsApi(
@@ -35,6 +36,7 @@ const GoalRow = ({goal, onClick}:{goal:Goal, onClick:(goal:Goal)=>any})=>{
 
 const Index = ()=>
 {
+    const [me, setMe] = React.useState<Me>(null);
     const [goals, setGoals] = React.useState<Goal[]>([]);
     const [description, setDescription] = React.useState<string>("");
     const [refreshing, setRefreshing] = React.useState<boolean>(false);
@@ -68,6 +70,10 @@ const Index = ()=>
 
     React.useEffect(()=>
     {
+      fetch('/api/1/me').then(async resp =>
+      {
+        setMe(await resp.json());
+      });
       refresh();
       window.onfocus = ()=>refresh();
     }, [])
@@ -98,7 +104,7 @@ const Index = ()=>
 
     return (
         <Router history={history}>
-          <Header refreshing={refreshing}/>
+          <Header refreshing={refreshing} me={me}/>
           <Container maxWidth="sm" style={{marginTop:'16px'}}>
             <Switch>
               <Route path="/log">

@@ -2,14 +2,16 @@ import * as React from 'react';
 import { Toolbar, IconButton, Menu, MenuItem, LinearProgress, Typography, AppBar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import history from './history';
+import {Me} from './types';
 declare var process;
 
 interface IProps
 {
   refreshing:boolean;
+  me:Me;
 }
 
-export const Header = ({refreshing}:IProps)=>
+export const Header = ({refreshing, me}:IProps)=>
 {
     const [showMenu, setShowMenu] = React.useState<boolean>(false);
 
@@ -46,7 +48,7 @@ export const Header = ({refreshing}:IProps)=>
             <Menu anchorEl={menuRef.current} open={showMenu} onClose={handleClose} keepMounted>
               <MenuItem onClick={()=>handleClose("/")}>Goals</MenuItem>
               <MenuItem onClick={()=>handleClose("/log")}>Log</MenuItem>
-              <MenuItem onClick={()=>window.location.replace("/logout")}>Logout</MenuItem>
+              <MenuItem onClick={()=>window.location.replace("/logout")}>Logout {me?.email}</MenuItem>
             </Menu>
           </div>
 
