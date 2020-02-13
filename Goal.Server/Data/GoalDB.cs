@@ -10,6 +10,7 @@ namespace Goal.Server.Data
     public class Goal
     {
         public int Id { get; set; }
+        public string Owner {get;set;}
         
         public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.Now;
         public string Description { get; set; } = "";
@@ -37,7 +38,7 @@ namespace Goal.Server.Data
             return new LiteDatabase(info.FullName);
         }
 
-        public List<Goal> GetEntries()
+        public List<Goal> GetEntries(string asOwner)
         {
             var list = new List<Goal>();
             using (var db = OpenDB())
@@ -45,24 +46,30 @@ namespace Goal.Server.Data
                 var col = db.GetCollection<Goal>("goals");
                 foreach (var g in col.FindAll().Reverse())
                 {
-                   list.Add(g);
+                    if ( g.Owner == asOwner)
+                        list.Add(g);
                 }
             }
 
             return list;
         }
 
-        public void Delete(int id)
+        public void Delete(int id, string asOwner)
         {
             using (var db = OpenDB())
             {
                 var col = db.GetCollection<Goal>("goals");
-                col.Delete(id);
+                if (col.FindById(id).Owner == asOwner)
+                    col.Delete(id);
+                else
+                    throw new Exception("Access denied"); 
             }
         }
 
-        public int Insert(Goal g)
+        public int Insert(Goal g, string asOwner)
         {
+            if (g.Owner != asOwner)
+                throw new Exception("Access denied");
             using (var db = OpenDB())
             {
                 var col = db.GetCollection<Goal>("goals");

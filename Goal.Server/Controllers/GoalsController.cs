@@ -12,16 +12,24 @@ namespace Goal.Server.Controllers
     [Authorize]
     public class GoalsController : ControllerBase
     {
-        private GoalDB dB;
+        private GoalDB db;
         public GoalsController(GoalDB db)
         {
-            this.dB = db;
+            this.db = db;
+        }
+
+        public string Nameidentifier
+        {
+            get
+            {
+                return User.FindFirst(p=>p.Type.Contains("nameidentifier")).Value;
+            }
         }
 
         [HttpGet]
         public List<Data.Goal> Get()
         {
-            return dB.GetEntries();
+            return db.GetEntries(Nameidentifier);
         }
 
         public class PostGoal
@@ -36,15 +44,16 @@ namespace Goal.Server.Controllers
             var g = new Data.Goal()
             {
                 Timestamp = DateTimeOffset.Now,
-                Description = newg.Description
+                Description = newg.Description,
+                Owner = Nameidentifier
             };
-            dB.Insert(g);
+            db.Insert(g, Nameidentifier);
         }
 
         [HttpDelete]
         public void Delete([FromBody]int id)
         {
-            dB.Delete(id);
+            db.Delete(id, Nameidentifier);
         }
     }
 }
